@@ -11,8 +11,3 @@
 
 参考：https://www.xmmup.com/yashanyashandbshujukuxunjianjiaoben.html
 
-
-## 德哥的PG巡检脚本
-
-参考：https://github.com/digoal/pgsql_admin_script
-
