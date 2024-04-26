@@ -1,6 +1,6 @@
 # 小麦苗dbhealthcheck
 
-## PG的巡检脚本使用方法
+## 小麦苗PostgreSQL的巡检脚本使用方法
 
 参考： https://www.xmmup.com/pgshujukuxunjianjiaoben.html
 
@@ -19,7 +19,6 @@
 
 
 
-
 ## 1、巡检脚本简介
 
 
@@ -31,11 +30,11 @@
 
 ![](https://pic.xmmup.com/i/2023/11/21/202311211317065-3.png)
 
-> - 目前一共包含**32**个脚本，若脚本的扩展名为“.sql”则表示该脚本为sql脚本；若脚本的扩展名为“.pl”则表示该脚本为perl脚本；若脚本的扩展名为“.sh”则表示该脚本为shell脚本。
+> - 目前一共包含**33**个脚本，若脚本的扩展名为“.sql”则表示该脚本为sql脚本；若脚本的扩展名为“.pl”则表示该脚本为perl脚本；若脚本的扩展名为“.sh”则表示该脚本为shell脚本。
 > - 对于Oracle的SQL脚本而言，脚本DB_Oracle_HC_lhr_v7.0.0_10g.sql适用于Oracle 10g数据库，脚本DB_Oracle_HC_lhr_v7.0.0_11g.sql适用于Oracle 11g的数据库，脚本DB_Oracle_HC_lhr_v7.0.0_12c.sql适用于Oracle 12c及其以上版本，这3个脚本都是**只读**版本，这3个脚本只会对数据库做查询操作，不会做DML和DDL操作，这也是很多朋友所期待的功能。
 > - 脚本DB_OS_HC_lhr_v7.0.0.pl是perl脚本，执行后会对OS的信息进行收集，并且输出到html中。脚本DB_OS_HC_lhr_v7.0.0.sh是shell脚本，执行后会对OS的信息进行收集。
 > - 脚本DB_MySQL_HC_lhr_v7.0.0.sql是MySQL脚本，执行后会产生MySQL的健康检查html报告，该脚本为**只读**脚本。该脚本也适用于mariadb数据库。
-> - 脚本DB_SQLServer_HC_lhr_v7.0.0_2005.sql和DB_SQLServer_HC_lhr_v7.0.0_2008R2.sql是SQL Server脚本，存在部分DDL和DML操作，执行后会产生SQL Server的健康检查html报告。脚本DB_SQLServer_HC_lhr_v7.0.0_2005.sql最低支持2005版本，而脚本DB_SQLServer_HC_lhr_v7.0.0_2008R2.sql最低支持2008R2版本。
+> - 脚本DB_SQLServer_HC_lhr_v7.0.0_2005.sql和DB_SQLServer_HC_lhr_v7.0.0_2008R2.sql是SQL Server脚本，存在部分DDL和DML操作，执行后会产生SQL Server的健康检查html报告。脚本DB_SQLServer_HC_lhr_v7.0.0_2005.sql最低支持2005版本，而脚本DB_SQLServer_HC_lhr_v7.0.0_2008R2.sql最低支持2008R2版本，而脚本DB_SQLServer_HC_lhr_v7.0.0_2016.sql最低支持2016版本。
 > - 脚本DB_PG_HC_lhr_v7.0.0.sql是PG数据库脚本，执行后会产生PostgreSQL数据库的健康检查html报告。
 > - 脚本DB_GP_HC_lhr_v7.0.0.sql是Greenplum数据库脚本，执行后会产生Greenplum数据库的健康检查html报告。
 > - 脚本DB_DM_HC_lhr_v7.0.0是达梦数据库脚本，执行后会产生达梦数据库的健康检查html报告。
@@ -93,6 +92,8 @@
 >14、Oracle数据库对巡检结果进行过滤，列出了数据库有问题的内容
 >
 >15、对OS的信息提供了收集（单独脚本）
+
+
 
 
 
@@ -194,6 +195,10 @@ LINE 1: SELECT * FROM pg_config ;
 ## 5、所有数据库类型巡检
 
 请参考：https://www.xmmup.com/shujukuxunjianjiaoben.html
+
+
+
+
 
 
 
