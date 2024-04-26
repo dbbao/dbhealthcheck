@@ -177,7 +177,7 @@ LINE 1: SELECT * FROM pg_config ;
 
 ## 4、html巡检结果
 
-这里只列出**部分结果**，其它的详细内容可以参考：https://share.weiyun.com/5lb2U2M
+这里只列出**部分结果**，其它的详细内容可以参考：[https://share.weiyun.com/5lb2U2M](https://share.weiyun.com/FQY9zcm0)
 
 ![](https://pic.xmmup.com/i/img/20210721171524.png)
 
