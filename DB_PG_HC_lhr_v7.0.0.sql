@@ -1,3 +1,11 @@
+-- 运行方式： psql -U postgres -h 192.168.66.35 -p 54324 -d postgres -W -H -q -f D:\DB_PG_HC_lhr_v7.0.0.sql > d:\PG_health_check.html
+
+\set QUIET 1
+\setenv lc_messages 'C'
+
+set session statement_timeout = '30s';
+set session lock_timeout = '10s';
+
 
 \pset footer off
 
@@ -40,7 +48,7 @@
 \qecho <p>
 \qecho <a style="font-weight:lighter">巡 检 人：小麦苗([QQ：646634621]   [微信公众号：DB宝]   [提供OCP、OCM、高可用、MySQL和PostgreSQL最实用的培训])</a></br>
 \qecho <a style="font-weight:lighter">版 本 号：v7.0.0</a></br>
-\qecho <a style="font-weight:lighter">修改日期：2023-04-18</a></br>
+\qecho <a style="font-weight:lighter">修改日期：2024-04-25</a></br>
 \qecho <p>
 \qecho [<a class="noLink" href="#html_bottom_link"  style="font-weight:lighter">转到页底</a>]
 \qecho <hr>
@@ -160,6 +168,9 @@ now() now_date,
 -- show server_version;
 -- select version();
 
+\qecho <p>● 用户认证方式（PG16）
+select  "system_user"();
+
 
 \qecho <p>● 服务器OS类型
 select version();
@@ -187,6 +198,16 @@ SELECT d.datname as "Name",
 FROM pg_catalog.pg_database d
   JOIN pg_catalog.pg_tablespace t on d.dattablespace = t.oid
 ORDER BY 1;
+
+
+/* 数据库大小
+SELECT pg_size_pretty(pg_database_size('your_database_name')) AS size;
+SELECT
+  datname AS database_name,
+  pg_size_pretty(pg_database_size(datname)) AS size
+FROM pg_database;
+*/
+
 
 
 \qecho ● 查看各数据库数据创建时间
@@ -648,7 +669,9 @@ WHERE  a.name IN ('data_directory',
                   'log_truncate_on_rotation',
                   'log_statement',
                   'log_min_duration_statement',
-                  'max_connections','listen_addresses')
+                  'max_connections',
+                  'listen_addresses',
+                  'shared_buffers')
 ORDER  BY NAME;
 -- show data_directory;
 -- show config_file;
@@ -734,7 +757,7 @@ order by to_char(date_trunc('day',tf0.last_update_time),'yyyymmdd') desc
 
 \qecho
 \qecho <a name="pg_wal"></a>
-\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● wal日志统计</b></font>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● wal日志统计（PG14）</b></font>
 SELECT * FROM pg_stat_wal ;
 
 
@@ -771,10 +794,13 @@ LIMIT 50;
 
 
 /*
-select pg_size_pretty (pg_total_relation_size('test'));
-select pg_size_pretty (pg_table_size('test'));
-select pg_size_pretty (pg_indexes_size('test'));
-select pg_size_pretty (pg_relation_size('test'));
+
+
+select pg_size_pretty(pg_table_size('test'));  -- 查询某个表或某个索引的大小
+select pg_size_pretty(pg_relation_size('test')); -- 查询某个表或某个索引的大小
+select pg_size_pretty(pg_indexes_size('test'));  -- 表上所有索引大小
+select pg_size_pretty(pg_total_relation_size('test'));  -- 表+索引大小
+
 
 */
 
@@ -822,39 +848,103 @@ where d.datname not in ('template0','template1')
 select * from pg_stat_database;
 
 
+\qecho
+\qecho <a name="pg_stat_io"></a>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 数据库IO详情（PG16新增）</b></font>
+SELECT * FROM pg_stat_io WHERE reads <> 0 OR writes <> 0 OR extends <> 0;
+
+
 
 \qecho
 \qecho <a name="pg_stat_replication_slots"></a>
-\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 复制槽活动信息</b></font>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 复制槽活动信息（pg14）</b></font>
 SELECT * FROM pg_stat_replication_slots ;
 
 
 
 \qecho
 \qecho <a name="pg_stat_progress_copy"></a>
-\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● copy进度</b></font>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● copy进度（pg14）</b></font>
 SELECT * FROM pg_stat_progress_copy ;
 
 
 
 \qecho
 \qecho <a name="pg_stat_slru"></a>
-\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 显示访问cached pages的统计信息</b></font>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 显示访问cached pages的统计信息（PG 13）</b></font>
 select * from pg_stat_slru;
 
 
 
 \qecho
 \qecho <a name="pg_shmem_allocations"></a>
-\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 查看share buffer的使用情况</b></font>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 查看share buffer的使用情况（PG13）</b></font>
 select * from pg_shmem_allocations;
 
 
 
 \qecho
-\qecho <a name="pg_copy"></a>
-\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 查询备份进度</b></font>
+\qecho <a name="pg_stat_progress_basebackup"></a>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 查询备份进度（PG13）</b></font>
 select * from pg_stat_progress_basebackup;
+
+
+
+\qecho
+\qecho <a name="pg_stat_progress_analyze"></a>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 查询analyze的进度（PG13）</b></font>
+select * from pg_stat_progress_analyze;
+
+
+\qecho
+\qecho <a name="pg_stat_progress_create_index"></a>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 新建或重建索引的过程跟踪（PG12）</b></font>
+select * from pg_stat_progress_create_index;
+
+
+
+\qecho
+\qecho <a name="pg_stat_progress_cluster"></a>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● cluster的各个阶段（PG12）</b></font>
+select * from pg_stat_progress_cluster;
+
+
+\qecho
+\qecho <a name="pg_stat_progress_vacuum"></a>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● vacuum的各个阶段（PG9.6）</b></font>
+select * from pg_stat_progress_vacuum;
+
+
+
+\qecho
+\qecho <a name="pg_backend_memory_contexts"></a>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 查看当前会话的内存上下文使用情况（PG14）</b></font>
+
+SELECT *  from pg_backend_memory_contexts a order by a.used_bytes desc limit 100;
+
+
+
+\qecho
+\qecho <a name="pg_stats_ext"></a>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 查看扩展统计信息定义（PG12）</b></font>
+
+SELECT *  from pg_stats_ext limit 100;
+
+
+
+\qecho
+\qecho <a name="pg_statistic_ext_data"></a>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 查看扩展统计信息详情（PG12）</b></font>
+
+SELECT *  from pg_statistic_ext_data limit 100;
+
+
+\qecho
+\qecho <a name="pg_stats_ext_exprs"></a>
+\qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 查看扩展统计信息对象中包含的表达式信息（PG14）</b></font>
+
+SELECT *  from pg_stats_ext_exprs limit 100;
+
 
 
 
@@ -873,8 +963,10 @@ select * from pg_stat_progress_basebackup;
 
 \qecho <p><font size="+1" face="Consolas" color="#336699"><b>● 所有角色(用户)</b></font>
 select * from pg_roles;
+
 \qecho <p>●  pg_user<p>
 select * from pg_user;
+
 \qecho <p>●  pg_shadow<p>
 select * from pg_shadow;
 
