@@ -5,8 +5,8 @@
 参考： https://www.xmmup.com/pgshujukuxunjianjiaoben.html
 
 ### 其它开源工具
-1、https://github.com/awslabs/pg-collector
-2、https://github.com/jobinau/pg_gather
+- 1、https://github.com/awslabs/pg-collector
+- 2、https://github.com/jobinau/pg_gather
 
 
 ## 国产崖山YashanDB的巡检脚本使用方法
