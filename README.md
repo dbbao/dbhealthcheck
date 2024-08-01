@@ -2,7 +2,7 @@
 
 ## 小麦苗PostgreSQL的巡检脚本使用方法
 
-参考： https://www.xmmup.com/pgshujukuxunjianjiaoben.html
+参考： https://www.dbaup.com/pgshujukuxunjianjiaoben.html
 
 ### 其它开源工具
 - 1、https://github.com/awslabs/pg-collector
@@ -11,7 +11,7 @@
 
 ## 国产崖山YashanDB的巡检脚本使用方法
 
-参考：https://www.xmmup.com/yashanyashandbshujukuxunjianjiaoben.html
+参考：https://www.dbaup.com/yashanyashandbshujukuxunjianjiaoben.html
 
 
 
@@ -24,11 +24,11 @@
 
 该套数据库巡检脚本多数为纯SQL脚本开发，如下所示：
 
-![](https://pic.xmmup.com/i/2023/11/21/202311211316420-3.png)
+![](https://pic.dbaup.com/i/2023/11/21/202311211316420-3.png)
 
-![](https://pic.xmmup.com/i/2023/11/21/202311211317746-3.png)
+![](https://pic.dbaup.com/i/2023/11/21/202311211317746-3.png)
 
-![](https://pic.xmmup.com/i/2023/11/21/202311211317065-3.png)
+![](https://pic.dbaup.com/i/2023/11/21/202311211317065-3.png)
 
 > - 目前一共包含**33**个脚本，若脚本的扩展名为“.sql”则表示该脚本为sql脚本；若脚本的扩展名为“.pl”则表示该脚本为perl脚本；若脚本的扩展名为“.sh”则表示该脚本为shell脚本。
 > - 对于Oracle的SQL脚本而言，脚本DB_Oracle_HC_lhr_v7.0.0_10g.sql适用于Oracle 10g数据库，脚本DB_Oracle_HC_lhr_v7.0.0_11g.sql适用于Oracle 11g的数据库，脚本DB_Oracle_HC_lhr_v7.0.0_12c.sql适用于Oracle 12c及其以上版本，这3个脚本都是**只读**版本，这3个脚本只会对数据库做查询操作，不会做DML和DDL操作，这也是很多朋友所期待的功能。
@@ -179,13 +179,13 @@ LINE 1: SELECT * FROM pg_config ;
 
 这里只列出**部分结果**，其它的详细内容可以参考：https://share.weiyun.com/FQY9zcm0
 
-![](https://pic.xmmup.com/i/img/20210721171524.png)
+![](https://pic.dbaup.com/i/img/20210721171524.png)
 
-![](https://pic.xmmup.com/i/img/20210721171614.png)
+![](https://pic.dbaup.com/i/img/20210721171614.png)
 
-![](https://pic.xmmup.com/i/img/20210721171651.png) 
+![](https://pic.dbaup.com/i/img/20210721171651.png) 
 
-![](https://pic.xmmup.com/i/img/20210721171836.png)
+![](https://pic.dbaup.com/i/img/20210721171836.png)
 
 
 
@@ -194,7 +194,7 @@ LINE 1: SELECT * FROM pg_config ;
 
 ## 5、所有数据库类型巡检
 
-请参考：https://www.xmmup.com/shujukuxunjianjiaoben.html
+请参考：https://www.dbaup.com/shujukuxunjianjiaoben.html
 
 
 
